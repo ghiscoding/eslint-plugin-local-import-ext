@@ -1,0 +1,49 @@
+{
+  "name": "eslint-plugin-local-import-ext",
+  "version": "0.1.0",
+  "description": "Enforce file extension style in import declarations (fixable with --fix)",
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "imports",
+    "extensions"
+  ],
+  "type": "module",
+  "main": "index.mjs",
+  "exports": {
+    ".": {
+      "default": "./index.mjs"
+    }
+  },
+  "module": "./index.mjs",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "index.mjs",
+    "rules/",
+    "README.md"
+  ],
+  "engines": {
+    "node": "^20.0.0 || >=22.0.0"
+  },
+  "license": "MIT",
+  "author": "Ghislain B.",
+  "homepage": "https://github.com/ghiscoding/eslint-plugin-local-import-ext",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghiscoding/eslint-plugin-local-import-ext.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ghiscoding/eslint-plugin-local-import-ext/issues"
+  },
+  "scripts": {
+    "test": "vitest --config ./vitest.config.mjs",
+    "test:coverage": "vitest --no-watch --coverage --config ./vitest.config.mjs"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^5.0.0-beta.3",
+    "eslint": "^8.49.0",
+    "vitest": "^5.0.0-beta.3"
+  }
+}

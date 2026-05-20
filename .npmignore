@@ -1,0 +1,25 @@
+.env
+
+# dependencies
+/node_modules
+
+# build
+tsconfig.tsbuildinfo
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.chrome
+
+# Tests, Report & Coverage
+*.spec.mjs
+*.spec.ts
+**/docs
+**/website
+**/node_modules
+**/coverage
+**/test
+**/*.tgz
