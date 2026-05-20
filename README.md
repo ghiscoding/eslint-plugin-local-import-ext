@@ -1,3 +1,12 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
+[![Vitest](https://img.shields.io/badge/tested%20with-vitest-fcc72b.svg?logo=vitest)](https://vitest.dev/)
+[![codecov](https://codecov.io/gh/ghiscoding/eslint-plugin-local-import-ext/branch/main/graph/badge.svg)](https://codecov.io/gh/ghiscoding/eslint-plugin-local-import-ext)
+<a href="https://nodejs.org/en/about/previous-releases"><img src="https://img.shields.io/node/v/eslint-plugin-local-import-ext.svg" alt="Node" /></a>
+
+[![npm](https://img.shields.io/npm/dy/eslint-plugin-local-import-ext)](https://www.npmjs.com/package/eslint-plugin-local-import-ext)
+[![npm](https://img.shields.io/npm/v/eslint-plugin-local-import-ext.svg)](https://www.npmjs.com/package/eslint-plugin-local-import-ext)
+
 # eslint-plugin-local-import-ext
 
 📝 Enforce the style of file extensions in import declarations.
