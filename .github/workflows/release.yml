@@ -1,0 +1,91 @@
+name: 🏷️ Publish NPM Latest
+
+on:
+  workflow_dispatch:
+    inputs:
+      dryrun:
+        type: boolean
+        required: false
+        description: Dry-Run
+      version:
+        description: 'Fixed Version'
+        required: false
+        type: string
+
+permissions:
+  contents: write # to be able to publish a GitHub release
+  id-token: write # to enable use of OIDC for npm provenance
+  issues: write # to be able to comment on released issues
+  pull-requests: write # to be able to comment on released pull requests
+
+jobs:
+  deploy-npm-latest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Retrieve current Date Time in EST
+        shell: bash
+        run: echo "START_TIME=$(TZ=":America/New_York" date -R|sed 's/.....$//')" >> $GITHUB_ENV
+
+      - name: Current datetime - ${{ env.START_TIME }}
+        run: echo ${{ env.START_TIME }}
+
+      - name: Clone repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: ${{ github.event.pull_request.merged != true && contains('["ghiscoding"]', github.actor) != true }}
+        name: Exit early when current actor is not allowed to push new release
+        run: |
+          echo "Error: Your GitHub username (${{ github.actor }}) is not on the allowed list of admins for this workflow"
+          exit 1
+
+      - name: Set NodeJS
+        uses: actions/setup-node@v6
+        with:
+          registry-url: 'https://registry.npmjs.org/'
+          node-version: 24
+
+      - name: Get npm cache directory path
+        id: npm-cache-dir-path
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v5
+        id: npm-cache
+        with:
+          path: ${{ steps.npm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: 🧪 Dry-Run - GitHub Release
+        if: ${{ inputs.dryrun == true }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          npx release-it --ci --dry-run
+
+      - name: Fixed Version Release ⚙️ / NPM Publish 📦
+        if: ${{ inputs.version != '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          npx release-it ${{ inputs.version }} --ci --plugins.'@release-it/conventional-changelog'.ignoreRecommendedBump=false
+
+      - name: GitHub Release 🏷️ / NPM Publish 📦
+        if: ${{ inputs.dryrun != true && inputs.version == '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          npx release-it --ci
