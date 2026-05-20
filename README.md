@@ -1,14 +1,10 @@
-# eslint-plugin-local-import-ext — require-local-extension
+# eslint-plugin-local-import-ext
 
 📝 Enforce the style of file extensions in import declarations.
 
 🔧 This rule is automatically fixable by the `--fix` CLI option.
 
 Targets local imports (paths starting with `./` or `../`) and performs safe autofixes when run with `--fix`.
-
-Supported targets
-- `import` / `export` sources
-- Common `require()` call sites
 
 It recognizes many common extensions by default (`.js`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.jsx`, `.vue`, `.json`, images, styles, etc.) and supports Vite-style import query suffixes (e.g. `?raw`).
 
@@ -26,7 +22,13 @@ It recognizes many common extensions by default (`.js`, `.mjs`, `.cjs`, `.ts`, `
 > }
 > ```
 
-Quick usage
+### Install
+
+```sh
+npm install eslint-plugin-local-import-ext
+```
+
+### Quick usage
 
 Below are two example ways to enable the rule in an OXLint/ESLint config: a minimal "Basic" example and a more explicit "Full" example (recommended for repo-wide consistency).
 
@@ -77,7 +79,7 @@ Full OXLint config (recommended)
 }
 ```
 
-Configuration options
+### Configuration options
 
 Options can be passed either as rule options or via `settings.localImportExt`.
 
@@ -139,108 +141,3 @@ Behavior notes
 - Directory imports that resolve to an `index` file are supported (the fixer will append `/index.js` when that file exists).
 - Asset and style imports are ignored if their extensions are included in `allowedExts`.
 
-Examples (before -> after)
-
-- Simple import
-
-Before:
-```js
-Quick usage
-
-Below are two example ways to enable the rule in an OXLint/ESLint config: a minimal "Basic" example and a more explicit "Full" example (recommended for repo-wide consistency).
-
-Basic OXLint config
-
-```json
-{
-  "plugins": ["import-ext"],
-  "jsPlugins": ["eslint-plugin-local-import-ext"],
-  "rules": {
-    "local-import-ext/require-local-extension": [
-      "error",
-      {
-        "js": "always",
-        "ts": "never"
-      }
-    ]
-  }
-}
-```
-
-Full OXLint config (recommended)
-
-```json
-{
-  "plugins": ["import-ext"],
-  "jsPlugins": ["eslint-plugin-local-import-ext"],
-  "settings": {
-    "localImportExt": {
-      "preferredFixExt": ".js",
-      "extRules": { "js": "always", "ts": "never" },
-      "allowedExts": [".js",".mjs",".cjs",".ts",".tsx",".jsx",".vue",".json"],
-      "excludedFolders": ["demos/**","test/**"],
-      "ignorePackages": true
-    }
-  },
-  "rules": {
-    "local-import-ext/require-local-extension": [
-      "error",
-      {
-        "preferredFixExt": ".js",
-        "extRules": { "js": "always", "ts": "never" },
-        "excludedFolders": ["demos/**","test/**"],
-        "ignorePackages": true
-      }
-    ]
-  }
-}
-```
-
-Configuration options
-
-Options can be passed either as rule options or via `settings.localImportExt`.
-
-Key options:
-- `excludedFolders`: array of repo-relative folder globs to ignore (e.g. tests, demos).
-- `allowedExts`: array of allowed extensions for the rule.
-- `preferredFixExt`: single extension (string) the fixer should prefer when offering fixes (defaults to `.js`).
-- `disallowedExts`: array of extensions to explicitly avoid when fixing.
-
-- `extRules`: object mapping extensions to `"always"` or `"never"` (also supports the n-style mapping described below).
-- `ignorePackages`: when true, package imports (bare specifiers) are ignored and the rule only enforces local imports. This matches `import/extensions` compatibility where `"ignorePackages"` omits package imports from enforcement.
-
-Two common config styles are supported:
-
-- object form (recommended):
-
-```json
-{
-    "rules": {
-      "local-import-ext/require-local-extension": [
-        "error",
-        {
-          "preferredFixExt": ".js",
-          "extRules": { "js": "always", "ts": "never" },
-          "excludedFolders": ["demos/aurelia/test"]
-        }
-      ]
-    }
-}
-```
-
-- n-style shorthand (like eslint-plugin-n):
-
-```json
-{
-  "rules": {
-    "local-import-ext/require-local-extension": [
-      "error",
-      {
-        "js": "always",
-        "ts": "never",
-        "excludedFolders": ["demos/aurelia/test"]
-      }
-    ]
-  }
-}
-```
