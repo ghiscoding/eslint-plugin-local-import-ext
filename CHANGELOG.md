@@ -1,3 +1,12 @@
+# Change Log 
+All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## 0.2.0 (2026-05-22)
+
+### Features
+
+* initial commit to create eslint-plugin-import-ext ([8385163](https://github.com/ghiscoding/eslint-plugin-local-import-ext/commit/838516318b750430a73f2835ebf1c2dbb75237d3))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
