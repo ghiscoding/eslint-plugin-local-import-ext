@@ -18,7 +18,7 @@ Targets local imports (paths starting with `./` or `../`) and performs safe auto
 It recognizes many common extensions by default (`.js`, `.mjs`, `.cjs`, `.ts`, `.tsx`, `.jsx`, `.vue`, `.json`, images, styles, etc.) and supports Vite-style import query suffixes (e.g. `?raw`).
 
 > [!NOTE]
-> This ESLint plugin was created as a temporary workaround until the OXC/OXLint issue #19431 (https://github.com/oxc-project/oxc/issues/19431) is resolved. It helps catch missing local import file extensions during linting.
+> This ESLint plugin was created as a temporary workaround until the OXC/OXLint issue (https://github.com/oxc-project/oxc/issues/19431) is resolved. It helps catch missing local import file extensions during linting.
 >
 > Recommended migration (disable `import/extensions` and enable this rule):
 >
